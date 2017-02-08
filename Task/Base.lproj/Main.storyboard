@@ -43,7 +43,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="XBm-R1-hJn" kind="show" id="3QL-OI-Emm"/>
+                                    <segue destination="XBm-R1-hJn" kind="show" identifier="toShowTaskDetail" id="3QL-OI-Emm"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -55,7 +55,7 @@
                     <navigationItem key="navigationItem" id="ar4-Pr-EGI">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="fa3-rD-e4N">
                             <connections>
-                                <segue destination="XBm-R1-hJn" kind="show" id="7De-Bs-PcC"/>
+                                <segue destination="XBm-R1-hJn" kind="show" identifier="toAddTask" id="7De-Bs-PcC"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -114,16 +114,6 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
-                                                <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="YtK-tt-pwk">
-                                                    <rect key="frame" x="-8" y="-41" width="375" height="216"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                                    <date key="date" timeIntervalSinceReferenceDate="508287195.54323101">
-                                                        <!--2017-02-08 22:53:15 +0000-->
-                                                    </date>
-                                                    <connections>
-                                                        <action selector="datePickerValueChanged:" destination="XBm-R1-hJn" eventType="valueChanged" id="nIc-Hz-d0G"/>
-                                                    </connections>
-                                                </datePicker>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="ewP-RT-igZ" secondAttribute="bottom" id="4rX-iY-II0"/>
@@ -187,6 +177,21 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V2c-fP-vLZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" id="YtK-tt-pwk">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="216"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <date key="date" timeIntervalSinceReferenceDate="508287195.54323101">
+                        <!--2017-02-08 22:53:15 +0000-->
+                    </date>
+                    <connections>
+                        <action selector="datePickerValueChanged:" destination="XBm-R1-hJn" eventType="valueChanged" id="nIc-Hz-d0G"/>
+                    </connections>
+                </datePicker>
+                <tapGestureRecognizer id="OET-TF-Ua1">
+                    <connections>
+                        <action selector="userTappedView:" destination="XBm-R1-hJn" id="lU5-Oe-C5c"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2188" y="257.72113943028489"/>
         </scene>

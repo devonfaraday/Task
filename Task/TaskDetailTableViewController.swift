@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TaskDetailTableViewController: UITableViewController {
+class TaskDetailTableViewController: UITableViewController, UITextViewDelegate, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,10 +35,20 @@ class TaskDetailTableViewController: UITableViewController {
     
     // MARK: - UI Functions
     
+    @IBAction func userTappedView(_ sender: Any) {
+        taskTextField.resignFirstResponder()
+        dueTextField.resignFirstResponder()
+        notesTextView.resignFirstResponder()
+    }
     @IBAction func datePickerValueChanged(_ sender: UIDatePicker) {
         
+        dueDateValue = dueDatePicker.date
+        guard let dueDate = dueDateValue else { return }
+        dueTextField.text = dueDate.stringValue()
     }
-    @IBAction func cancelButtonTapped(_ sender: Any) {
+    
+    
+       @IBAction func cancelButtonTapped(_ sender: Any) {
         let _ = navigationController?.popViewController(animated: true)
     }
     

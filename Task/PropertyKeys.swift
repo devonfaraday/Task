@@ -11,4 +11,6 @@ import Foundation
 
 struct PropertyKeys {
     static let taskCellKey = "taskCell"
+    static let taskDetailSegueKey = "toShowTaskDetail"
+    static let addTaskSegue = "toAddTask"
 }

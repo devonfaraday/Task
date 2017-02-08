@@ -2,71 +2,94 @@
 //  TaskListTableViewController.swift
 //  Task
 //
-//  Created by James Pacheco on 5/17/16.
-//  Copyright © 2016 DevMountain. All rights reserved.
+//  Created by Christian McMullin on 2/8/17.
+//  Copyright © 2017 DevMountain. All rights reserved.
 //
 
 import UIKit
 
-class TaskListTableViewController: UITableViewController, ButtonTableViewCellDelegate {
-    
+class TaskListTableViewController: UITableViewController {
+
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        tableView.reloadData()
+
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
-    // MARK: UITableViewDataSource/Delegate
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        // #warning Incomplete implementation, return the number of sections
+        return 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return TaskController.shared.tasks.count
+        // #warning Incomplete implementation, return the number of rows
+        return 0
     }
 
+    /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-		var cell: ButtonTableViewCell! = tableView.dequeueReusableCell(withIdentifier: "taskCell", for: indexPath) as? ButtonTableViewCell
-		if cell == nil { cell = ButtonTableViewCell() }
+        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
 
-		let task = TaskController.shared.tasks[indexPath.row]
-        cell.update(withTask: task)
-        cell.delegate = self
+        // Configure the cell...
+
         return cell
     }
-    
+    */
+
+    /*
+    // Override to support conditional editing of the table view.
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
+    }
+    */
+
+    /*
+    // Override to support editing the table view.
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let task = TaskController.shared.tasks[indexPath.row]
-			TaskController.shared.remove(task: task)
-            
+            // Delete the row from the data source
             tableView.deleteRows(at: [indexPath], with: .fade)
-        }
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }    
     }
-    
-    // MARK: ButtonTableViewCellDelegate
-    
-    func buttonCellButtonTapped(_ sender: ButtonTableViewCell) {
-        guard let indexPath = tableView.indexPath(for: sender) else { return }
-		let task = TaskController.shared.tasks[indexPath.row]
-        TaskController.shared.toggleIsCompleteFor(task: task)
-        tableView.reloadRows(at: [indexPath], with: .automatic)
+    */
+
+    /*
+    // Override to support rearranging the table view.
+    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+
     }
+    */
 
-    // MARK: Navigation
+    /*
+    // Override to support conditional rearranging of the table view.
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the item to be re-orderable.
+        return true
+    }
+    */
 
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "toViewTask" {
-            guard let indexPath = tableView.indexPathForSelectedRow else { return }
-			
-			let task = TaskController.shared.tasks[indexPath.row]
-            let detailVC = segue.destination as? TaskDetailTableViewController
-            detailVC?.task = task
-            detailVC?.dueDateValue = task.due as? Date
-        }
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
     }
+    */
+
 }

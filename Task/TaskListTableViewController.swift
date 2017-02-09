@@ -49,6 +49,7 @@ class TaskListTableViewController: UITableViewController, ButtonTableViewCellDel
         TaskController.shared.taskIsCompleteFor(task: task)
         tableView.reloadRows(at: [indexPath], with: .automatic)
         
+        
     }
    
     
@@ -65,5 +66,6 @@ class TaskListTableViewController: UITableViewController, ButtonTableViewCellDel
         
     }
     
+       
     
 }

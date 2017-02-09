@@ -40,3 +40,26 @@ extension ButtonTableViewCell {
 protocol ButtonTableViewCellDelegate {
     func buttonCellButtonTapped(_ sender: ButtonTableViewCell)
 }
+
+
+/*
+ 
+ func taskCompleteAlert() {
+ let alertviewController = UIAlertController(title: "Task Complete", message: "Mark this task as complete?", preferredStyle: .alert)
+ 
+ let completeAction = UIAlertAction(title: "Complete", style: .default) { alert -> Void in
+ 
+ }
+ 
+ let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { alert -> Void in
+ 
+ }
+ 
+ alertviewController.addAction(completeAction)
+ alertviewController.addAction(cancelAction)
+ 
+ present(alertviewController, animated: true, completion: nil)
+ }
+
+ 
+ */

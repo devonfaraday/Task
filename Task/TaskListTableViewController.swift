@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TaskListTableViewController: UITableViewController {
+class TaskListTableViewController: UITableViewController, ButtonTableViewCellDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -22,12 +22,13 @@ class TaskListTableViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: PropertyKeys.taskCellKey, for: indexPath)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: PropertyKeys.taskCellKey, for: indexPath) as? ButtonTableViewCell else { return ButtonTableViewCell() }
         let task = TaskController.shared.tasks[indexPath.row]
         
-        cell.textLabel?.text = task.name
+        cell.update(withTask: task)
+        cell.delegate = self
         
-        return cell
+       return cell
     }
     
     
@@ -36,11 +37,20 @@ class TaskListTableViewController: UITableViewController {
             let task = TaskController.shared.tasks[indexPath.row]
             TaskController.shared.remove(task: task)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            
         }
     }
     
+    // MARK: - Delegate Method
     
-    
+    func buttonCellButtonTapped(_ sender: ButtonTableViewCell) {
+        guard let indexPath = tableView.indexPath(for: sender) else { return }
+        let task = TaskController.shared.tasks[indexPath.row]
+        TaskController.shared.taskIsCompleteFor(task: task)
+        tableView.reloadRows(at: [indexPath], with: .automatic)
+        
+    }
+   
     
     // MARK: - Navigation
     

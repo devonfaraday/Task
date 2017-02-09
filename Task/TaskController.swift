@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 
 
 class TaskController {
@@ -23,29 +24,44 @@ class TaskController {
     
     // MARK: - Crud
     func add(taskWithName name: String, notes: String?, due: Date?) {
-        
+        let task = Task(name: name, notes: notes, due: due, isComplete: false, context: CoreDataStack.context)
+        tasks.append(task)
+        saveToPersistentStore()
     }
     
     func update(task: Task, name: String, notes: String?, due: Date?) {
-        
+        task.name = name
+        task.notes = notes
+        task.due = due as NSDate?
+        saveToPersistentStore()
     }
     
     func remove(task: Task){
-        
+        if let moc = task.managedObjectContext {
+            moc.delete(task)
+            saveToPersistentStore()
+        }
     }
     func saveToPersistentStore() {
-        
+        let moc = CoreDataStack.context
+        do {
+            try moc.save()
+        } catch {
+            fatalError("there was a problem: \(error)")
+        }
     }
     func fetchTasks() -> [Task] {
-        return mockTasks
+        let request: NSFetchRequest<Task> = Task.fetchRequest()
+        return (try? CoreDataStack.context.fetch(request)) ?? []
+        
     }
     
-    // MARK: - Mock Data
-    
-    var mockTasks: [Task] {
-        let task1 = Task(name: "Get Sode", isComplete: false)
-        let task2 = Task(name: "move car", isComplete: true)
-        let task3 = Task(name: "get food", notes: "Milk, eggs, butter, and other stuff", due: Date(),  isComplete: false)
-        return [task1, task2, task3]
+    func taskIsCompleteFor(task: Task) {
+        if task.isComplete {
+        task.isComplete = false
+        } else {
+        task.isComplete = true
     }
+
+}
 }

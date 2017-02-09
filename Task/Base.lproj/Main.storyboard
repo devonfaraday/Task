@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,30 +20,47 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskCell" textLabel="Mm3-Du-efZ" detailTextLabel="9Ek-bk-LLw" style="IBUITableViewCellStyleValue1" id="pZM-TE-NAj">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="taskCell" id="pZM-TE-NAj" customClass="ButtonTableViewCell" customModule="Task" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="pZM-TE-NAj" id="cWm-Vb-sMK">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Mm3-Du-efZ">
-                                            <rect key="frame" x="15" y="12" width="33.5" height="20.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9Ek-bk-LLw">
-                                            <rect key="frame" x="316" y="12" width="44" height="20.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="36v-ev-JLr">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="36"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Xy-kC-4BF">
+                                                    <rect key="frame" x="0.0" y="0.0" width="339" height="36"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ldH-dj-sc6">
+                                                    <rect key="frame" x="339" y="0.0" width="36" height="36"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="36" id="Rkv-P0-Sh4"/>
+                                                        <constraint firstAttribute="width" secondItem="ldH-dj-sc6" secondAttribute="height" multiplier="1:1" id="qIv-vF-YL1"/>
+                                                        <constraint firstAttribute="height" constant="36" id="y4o-gq-u8D"/>
+                                                    </constraints>
+                                                    <state key="normal" image="incomplete" backgroundImage="incomplete"/>
+                                                    <connections>
+                                                        <action selector="buttonTapped:" destination="pZM-TE-NAj" eventType="touchUpInside" id="bag-bA-ghD"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                        </stackView>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstItem="36v-ev-JLr" firstAttribute="leading" secondItem="cWm-Vb-sMK" secondAttribute="leading" id="LeD-kS-gvU"/>
+                                        <constraint firstItem="36v-ev-JLr" firstAttribute="top" secondItem="cWm-Vb-sMK" secondAttribute="top" id="X9f-K9-GhP"/>
+                                        <constraint firstAttribute="trailing" secondItem="36v-ev-JLr" secondAttribute="trailing" id="gkf-OG-wfi"/>
+                                        <constraint firstAttribute="bottom" secondItem="36v-ev-JLr" secondAttribute="bottom" id="yci-Td-roe"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="completeButton" destination="ldH-dj-sc6" id="ePA-tu-WDJ"/>
+                                    <outlet property="primaryLabel" destination="1Xy-kC-4BF" id="h1l-mK-tK1"/>
                                     <segue destination="XBm-R1-hJn" kind="show" identifier="toShowTaskDetail" id="3QL-OI-Emm"/>
                                 </connections>
                             </tableViewCell>
@@ -214,6 +232,9 @@
             <point key="canvasLocation" x="416.80000000000001" y="258.62068965517244"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="incomplete" width="512" height="512"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="7De-Bs-PcC"/>
     </inferredMetricsTieBreakers>

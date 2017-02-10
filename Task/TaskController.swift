@@ -13,19 +13,58 @@ import CoreData
 class TaskController {
     
     // MARK: - Properties
+    
+    
+    let fetchResultsController: NSFetchedResultsController<Task>
+    
+    //    var fetchRequest:  NSFetchRequest<Task> {
+    //        let isCompleteDescriptor = NSSortDescriptor(key: "isComplete", ascending: true)
+    //        let dueDescriptor = NSSortDescriptor(key: "due", ascending: true)
+    //
+    //        let request: NSFetchRequest<Task> = Task.fetchRequest()
+    //        request.sortDescriptors = [isCompleteDescriptor, dueDescriptor]
+    //
+    //        return request
+    //    }
+    
+    
     static let shared = TaskController()
-    var tasks = [Task]()
+    
+    
+    // var tasks = [Task]()
+    
     
     
     // MARK: - Initializer
     init() {
-        tasks = fetchTasks()
+        let fetchRequest: NSFetchRequest<Task> = Task.fetchRequest()
+        let isCompleteSortDescriptor = NSSortDescriptor(key: "isComplete", ascending: true)
+        let dueSortDescriptor = NSSortDescriptor(key: "due", ascending: true)
+        fetchRequest.sortDescriptors = [isCompleteSortDescriptor, dueSortDescriptor]
+        // tasks = fetchTasks()
+        self.fetchResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: CoreDataStack.context, sectionNameKeyPath: nil, cacheName: nil)
+        
+        do {
+            try fetchResultsController.performFetch()
+        } catch let error {
+            print("\(error)")
+        }
+        
+        
+        
     }
+    
+    
+    
+    /*
+     
+     Inside your initializer, after having initialized your fetchedResultsController, you will need to call performFetch() on it.
+     note: You will need to use the do, try, catch syntax since performFetch() is a throwing function. The catch should print out an error if there is one.
+     
+     */
     
     // MARK: - Crud
     func add(taskWithName name: String, notes: String?, due: Date?) {
-        let task = Task(name: name, notes: notes, due: due, isComplete: false, context: CoreDataStack.context)
-        tasks.append(task)
         saveToPersistentStore()
     }
     
@@ -50,18 +89,19 @@ class TaskController {
             fatalError("there was a problem: \(error)")
         }
     }
-    func fetchTasks() -> [Task] {
-        let request: NSFetchRequest<Task> = Task.fetchRequest()
-        return (try? CoreDataStack.context.fetch(request)) ?? []
+    
+    //    func fetchTasks() -> [Task] {
+    //        let request: NSFetchRequest<Task> = Task.fetchRequest()
+    //        return (try? CoreDataStack.context.fetch(request)) ?? []
+    //
+    //    }
+    
+    func taskIsCompleteFor(task: Task)  {
+        if task.isComplete {
+            task.isComplete = false
+        } else {
+            task.isComplete = true
+        }
         
     }
-    
-    func taskIsCompleteFor(task: Task) {
-        if task.isComplete {
-        task.isComplete = false
-        } else {
-        task.isComplete = true
-    }
-
-}
 }

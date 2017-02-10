@@ -14,9 +14,9 @@ enum CoreDataStack {
     static let container: NSPersistentContainer = {
         
         //grabs the name of the app and sets it as a string
-        let appName = Bundle.main.object(forInfoDictionaryKey: (kCFBundleNameKey as String)) as! String
+     //   let appName = Bundle.main.object(forInfoDictionaryKey: (kCFBundleNameKey as String)) as! String
         // setting the container to the name of the app
-        let container = NSPersistentContainer(name: appName)
+        let container = NSPersistentContainer(name: "Task")
         //loads container with the description and if nothing is found then it throws an error
         container.loadPersistentStores() { (storeDescription, error) in
             if let error = error as NSError? {
